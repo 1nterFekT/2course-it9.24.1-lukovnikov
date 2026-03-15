@@ -151,7 +151,7 @@ as $$
 				references account_credentials (id_account_credential)
 				on update cascade on delete cascade,
 			card_number varchar(16) not null,
-			card_expiration varchar(5) not null
+			card_expiration date not null
 		);
 
 		create table if not exists booking (
