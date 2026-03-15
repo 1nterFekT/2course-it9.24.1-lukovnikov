@@ -45,10 +45,10 @@ as $$
 		create table if not exists movies_composers (
 			id_movies_composers serial not null
 				constraint pk_movies_composers primary key,
-			id_movie int not null
+			movie_id int not null
 				references movies (id_movie)
 				on update cascade on delete cascade,
-			id_composer int not null
+			composer_id int not null
 				references composers (id_composer)
 				on update cascade on delete cascade
 		);
@@ -56,10 +56,10 @@ as $$
 		create table if not exists movies_directors (
 			id_movies_directors serial not null
 				constraint pk_movies_directors primary key,
-			id_movie int not null
+			movie_id int not null
 				references movies (id_movie)
 				on update cascade on delete cascade,
-			id_director int not null
+			director_id int not null
 				references directors (id_director)
 				on update cascade on delete cascade
 		);
@@ -67,10 +67,10 @@ as $$
 		create table if not exists movies_actors (
 			id_movies_actors serial not null
 				constraint pk_movies_actors primary key,
-			id_movie int not null
+			movie_id int not null
 				references movies (id_movie)
 				on update cascade on delete cascade,
-			id_actor int not null
+			actor_id int not null
 				references actors (id_actor)
 				on update cascade on delete cascade
 		);
@@ -78,10 +78,10 @@ as $$
 		create table if not exists movies_countries (
 			id_movies_countries serial not null
 				constraint pk_movies_countries primary key,
-			id_movie int not null
+			movie_id int not null
 				references movies (id_movie)
 				on update cascade on delete cascade,
-			id_country_produces int not null
+			country_produced_id int not null
 				references country_produced (id_country_produced)
 				on update cascade on delete cascade
 		);
@@ -89,10 +89,10 @@ as $$
 		create table if not exists movies_genres (
 			id_movies_genres serial not null
 				constraint pk_movies_genres primary key,
-			id_movie int not null
+			movie_id int not null
 				references movies (id_movie)
 				on update cascade on delete cascade,
-			id_genre int not null
+			genre_id int not null
 				references genre (id_genre)
 				on update cascade on delete cascade
 		);
@@ -106,11 +106,11 @@ as $$
 		create table if not exists sessions (
 			id_session serial not null 
 				constraint pk_sessions primary key,
-			id_hall int not null
+			hall_id int not null
 				references halls (id_hall)
 				on update cascade on delete cascade,
 			session_datetime timestamp not null,
-			id_movie int not null
+			movie_id int not null
 				references movies (id_movie)
 				on update cascade on delete cascade
 		);
@@ -118,7 +118,7 @@ as $$
 		create table if not exists seats (
 			id_seat serial not null 
 				constraint pk_seats primary key,
-			id_hall int not null
+			hall_id int not null
 				references halls (id_hall)
 				on update cascade on delete cascade,
 			row int not null,
@@ -138,7 +138,7 @@ as $$
 		create table if not exists employees (
 			id_employee serial not null
 				constraint pk_employees primary key,
-			id_account_credentials int not null
+			account_credentials_id int not null
 				references account_credentials (id_account_credential)
 				on update cascade on delete cascade,
 			position varchar(50) not null
@@ -147,7 +147,7 @@ as $$
 		create table if not exists clients (
 			id_client serial not null
 				constraint pk_clients primary key,
-			id_account_credentials int not null
+			account_credentials_id int not null
 				references account_credentials (id_account_credential)
 				on update cascade on delete cascade,
 			card_number varchar(16) not null,
@@ -158,14 +158,14 @@ as $$
 			id_booking serial not null
 				constraint pk_booking primary key,
 			booking_number varchar(12) not null unique,
-			id_client int not null
+			client_id int not null
 				references clients (id_client)
 				on update cascade on delete cascade,
 			booking_datetime timestamp not null,
-			id_seat int not null
+			seat_id int not null
 				references seats (id_seat)
 				on update cascade on delete cascade,
-			id_session int not null
+			session_id int not null
 				references sessions (id_session)
 				on update cascade on delete cascade,
 			price int not null
@@ -175,13 +175,13 @@ as $$
 			id_ticket serial not null
 				constraint pk_tickets primary key,
 			ticket_number varchar(11) not null unique,
-			id_client int not null
+			client_id int not null
 				references clients (id_client)
 				on update cascade on delete cascade,
-			id_seat int not null
+			seat_id int not null
 				references seats (id_seat)
 				on update cascade on delete cascade,
-			id_session int not null
+			session_id int not null
 				references sessions (id_session)
 				on update cascade on delete cascade,
 			price int not null
