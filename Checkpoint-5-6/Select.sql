@@ -90,25 +90,25 @@
 -- 	m.name
 
 -- Расписание показов с местами (сделано с помощью ИИ)
--- select
--- 	h.hall_number,
--- 	to_char(s2.session_datetime, 'HH24:MI'),
--- 	se.row,
--- 	se.seat,
+select
+	h.hall_number,
+	to_char(s2.session_datetime, 'HH24:MI') as session_time,
+	se.row,
+	se.seat,
 
--- 	case
--- 		when t.id_ticket is not null then 'занято'
--- 		when b.id_booking is not null then 'забронировано'
--- 		else 'свободно'
--- 	end as status
+	case
+		when t.id_ticket is not null then 'занято'
+		when b.id_booking is not null then 'забронировано'
+		else 'свободно'
+	end as status
 	
--- from sessions s2
--- join halls h on s2.hall_id = h.id_hall
--- join seats se on se.hall_id = h.id_hall
--- left join booking b on b.session_id = s2.id_session and b.seat_id = se.id_seat
--- left join tickets t on t.booking_id = b.id_booking
--- order by
--- 	h.hall_number,
--- 	s2.session_datetime,
--- 	se.row,
--- 	se.seat;
+from sessions s2
+join halls h on s2.hall_id = h.id_hall
+join seats se on se.hall_id = h.id_hall
+left join booking b on b.session_id = s2.id_session and b.seat_id = se.id_seat
+left join tickets t on t.booking_id = b.id_booking
+order by
+	h.hall_number,
+	s2.session_datetime,
+	se.row,
+	se.seat;
