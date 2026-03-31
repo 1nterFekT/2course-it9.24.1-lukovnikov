@@ -158,6 +158,9 @@ as $$
 			id_booking serial not null
 				constraint pk_booking primary key,
 			booking_number varchar(12) not null unique,
+			employee_id int not null
+				references employees (id_employee)
+				on update cascade on delete cascade,
 			client_id int not null
 				references clients (id_client)
 				on update cascade on delete cascade,
@@ -175,16 +178,9 @@ as $$
 			id_ticket serial not null
 				constraint pk_tickets primary key,
 			ticket_number varchar(11) not null unique,
-			client_id int not null
-				references clients (id_client)
-				on update cascade on delete cascade,
-			seat_id int not null
-				references seats (id_seat)
-				on update cascade on delete cascade,
-			session_id int not null
-				references sessions (id_session)
-				on update cascade on delete cascade,
-			price int not null
+			booking_id int not null unique
+				references booking (id_booking)
+				on update cascade on delete cascade
 		);
 
 		create index if not exists index_id_composer

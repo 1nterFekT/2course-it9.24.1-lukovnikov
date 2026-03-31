@@ -70,26 +70,28 @@ as $$
 		revoke usage, select on sequence sessions_id_session_seq from rl_visitor;
 		revoke usage, select on sequence tickets_id_ticket_seq from rl_visitor;
 
-		drop table account_credentials;
-		drop table actors;
+		drop table tickets;
 		drop table booking;
-		drop table clients;
-		drop table composers;
-		drop table country_produced;
-		drop table directors;
-		drop table employees;
-		drop table genre;
-		drop table halls;
-		drop table movies;
-		drop table movies_actors;
-		drop table movies_composers;
-		drop table movies_countries;
-		drop table movies_directors;
-		drop table movies_genres;
 		drop table seats;
 		drop table sessions;
-		drop table tickets;
+		drop table movies_actors;
+		drop table movies_composers;
+		drop table movies_directors;
+		drop table movies_countries;
+		drop table movies_genres;
+		drop table clients;
+		drop table employees;
+		drop table halls;
+		drop table movies;
+		drop table actors;
+		drop table composers;
+		drop table directors;
+		drop table country_produced;
+		drop table genre;
+		drop table account_credentials;
 
 		call Structure_Create();
 	end;
 $$;
+
+call Structure_Re_Create();
