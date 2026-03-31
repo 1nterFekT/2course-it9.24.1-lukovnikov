@@ -36,7 +36,7 @@ The ERD (Entity-Relationship Diagram) of the database is shown below.
 
 ![ERD - metadata](images/ERD-Movies-metadata.png)
 
-*This diagram illustrates the tables, relationships, and fields used across the coursework.*
+_This diagram illustrates the tables, relationships, and fields used across the coursework._
 
 ---
 
@@ -47,6 +47,6 @@ The ERD (Entity-Relationship Diagram) of the database is shown below.
 
 ---
 
-## Description of tasks for each job
+## Description of tasks for each assignment
 
 TODO
