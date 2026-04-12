@@ -157,7 +157,7 @@ as $$
 		create table if not exists booking (
 			id_booking serial not null
 				constraint pk_booking primary key,
-			booking_number varchar(12) not null unique,
+			booking_number varchar(15) not null unique,
 			employee_id int not null
 				references employees (id_employee)
 				on update cascade on delete cascade,
@@ -177,10 +177,36 @@ as $$
 		create table if not exists tickets (
 			id_ticket serial not null
 				constraint pk_tickets primary key,
-			ticket_number varchar(11) not null unique,
+			ticket_number varchar(15) not null unique,
 			booking_id int not null unique
 				references booking (id_booking)
 				on update cascade on delete cascade
+		);
+
+		create table if not exists reviews (
+			id_review serial not null
+				constraint pk_reviews primary key,
+			ticket_id int not null unique
+				references tickets (id_ticket)
+				on update cascade on delete cascade,
+			-- Не смог прочекать даты, кроме как с помощью триггера. Поэтому проверка будет при вызове процедуры вставки
+			review_date date not null,
+			rating int not null check (rating between 0 and 10),
+			review_text varchar(255) default 'Без комментариев'
+		);
+
+		create table if not exists review_comments (
+			id_comment serial not null
+				constraint pk_review_comments primary key,
+			review_id int not null
+				references reviews (id_review)
+				on update cascade on delete cascade,
+			client_id int not null
+				references clients (id_client)
+				on update cascade on delete cascade,
+			-- Не смог прочекать даты, кроме как с помощью триггера. Поэтому проверка будет при вызове процедуры вставки
+			comment_datetime timestamp not null,
+			content varchar(255) not null
 		);
 
 		create index if not exists index_id_composer
@@ -255,12 +281,22 @@ as $$
 		create index if not exists index_id_ticket
 			on tickets (id_ticket);
 
+		create index if not exists index_id_review
+			on reviews (id_review);
+
+		create index if not exists index_id_comment
+			on review_comments (id_comment);
+
 		grant select, insert, update, delete on account_credentials to rl_admin;
 		grant select, insert, update, delete on clients to rl_admin;
 		grant select, insert, update, delete on employees to rl_admin;
+		grant select, insert, update, delete on reviews to rl_admin;
+		grant select, insert, update, delete on review_comments to rl_admin;
 		grant usage, select on sequence account_credentials_id_account_credential_seq to rl_admin;
 		grant usage, select on sequence clients_id_client_seq to rl_admin;
 		grant usage, select on sequence employees_id_employee_seq to rl_admin;
+		grant usage, select on sequence reviews_id_review_seq to rl_admin;
+		grant usage, select on sequence review_comments_id_comment_seq to rl_admin;
 
 		grant select, insert, update, delete on actors to rl_content_maker;
 		grant select, insert, update, delete on composers to rl_content_maker;
@@ -315,6 +351,8 @@ as $$
 		grant usage, select on sequence sessions_id_session_seq to rl_cashier;
 
 		grant select, update on clients to rl_visitor;
+		grant select, update on reviews to rl_visitor;
+		grant select, update on review_comments to rl_visitor;
 		grant select on booking to rl_visitor;
 		grant select on sessions to rl_visitor;
 		grant select on tickets to rl_visitor;
@@ -322,6 +360,8 @@ as $$
 		grant usage, select on sequence booking_id_booking_seq to rl_visitor;
 		grant usage, select on sequence sessions_id_session_seq to rl_visitor;
 		grant usage, select on sequence tickets_id_ticket_seq to rl_visitor;
+		grant usage, select on sequence reviews_id_review_seq to rl_visitor;
+		grant usage, select on sequence review_comments_id_comment_seq to rl_visitor;
 	end;
 $$;
 

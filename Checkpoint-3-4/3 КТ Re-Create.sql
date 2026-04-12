@@ -5,9 +5,13 @@ as $$
 		revoke select, insert, update, delete on account_credentials from rl_admin;
 		revoke select, insert, update, delete on clients from rl_admin;
 		revoke select, insert, update, delete on employees from rl_admin;
+		revoke select, insert, update, delete on reviews from rl_admin;
+		revoke select, insert, update, delete on review_comments from rl_admin;
 		revoke usage, select on sequence account_credentials_id_account_credential_seq from rl_admin;
 		revoke usage, select on sequence clients_id_client_seq from rl_admin;
 		revoke usage, select on sequence employees_id_employee_seq from rl_admin;
+		revoke usage, select on sequence reviews_id_review_seq from rl_admin;
+		revoke usage, select on sequence review_comments_id_comment_seq from rl_admin;
 
 		revoke select, insert, update, delete on actors from rl_content_maker;
 		revoke select, insert, update, delete on composers from rl_content_maker;
@@ -62,6 +66,8 @@ as $$
 		revoke usage, select on sequence sessions_id_session_seq from rl_cashier;
 
 		revoke select, update on clients from rl_visitor;
+		revoke select, update on reviews from rl_visitor;
+		revoke select, update on review_comments from rl_visitor;
 		revoke select on booking from rl_visitor;
 		revoke select on sessions from rl_visitor;
 		revoke select on tickets from rl_visitor;
@@ -69,7 +75,11 @@ as $$
 		revoke usage, select on sequence booking_id_booking_seq from rl_visitor;
 		revoke usage, select on sequence sessions_id_session_seq from rl_visitor;
 		revoke usage, select on sequence tickets_id_ticket_seq from rl_visitor;
+		revoke usage, select on sequence reviews_id_review_seq from rl_visitor;
+		revoke usage, select on sequence review_comments_id_comment_seq from rl_visitor;
 
+		drop table review_comments;
+		drop table reviews;
 		drop table tickets;
 		drop table booking;
 		drop table seats;
