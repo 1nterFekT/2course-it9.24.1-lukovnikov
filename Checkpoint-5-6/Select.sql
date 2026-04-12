@@ -21,7 +21,7 @@
 -- select
 -- 	emp_acc.login as employee,
 -- 	cli_acc.login as client,
--- 	'БР-' || b.booking_number as booking_number,
+-- 	b.booking_number as booking_number,
 -- 	b.booking_datetime,
 -- 	m.name as movie_name,
 -- 	h.hall_number,
@@ -29,7 +29,7 @@
 -- 	se.row as row_number,
 -- 	se.seat as seat_number,
 -- 	b.price,
--- 	t.ticket_number || '/КБ' as ticket_number
+-- 	t.ticket_number as ticket_number
 -- from booking b
 -- join employees e on b.employee_id = e.id_employee
 -- join account_credentials emp_acc on e.account_credentials_id = emp_acc.id_account_credential
